@@ -60,6 +60,3 @@ It leverages modern web technologies like **Next.js**, **Prisma**, **PostgreSQL*
 | **Deployment** | Vercel | Serverless deployment with built-in edge caching |
 
 ---
-
-## 🧩 Architecture Overview
-
