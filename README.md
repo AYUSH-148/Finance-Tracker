@@ -1,29 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`]. (https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💰 PennyWise – AI-Powered Finance Tracker
 
-## Getting Started
+PennyWise is a full-stack **personal finance intelligence platform** that helps users automate expense tracking, manage budgets, and receive AI-generated financial insights — all in one place.  
+It leverages modern web technologies like **Next.js**, **Prisma**, **PostgreSQL**, **Inngest**, **Clerk**, **Arcjet**, and **Gemini API** to deliver a secure, intelligent, and scalable experience.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🔐 Authentication & Authorization
+- Secure sign-in/sign-up using **Clerk** (supports Email + OAuth).
+- Role-based route protection using middleware.
+- Session handling and user management handled seamlessly by Clerk.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📊 Expense Management
+- Add, view, and categorize transactions (income & expenses).
+- AI-powered **OCR bill scanning** for automatic expense detection and categorization.
+- View detailed analytics with expense breakdowns and category-wise summaries.
 
-## Learn More
+### 💸 Budget Tracking
+- Users can set budgets per account or category.
+- Automated **budget alerts** every 6 hours if spending crosses 80% of the limit.
+- Alerts are sent via email using `@/actions/send-email`.
 
-App is related to Finance Management and creating recurring jobs.
+### 🔁 Recurring Transactions
+- Automatically process recurring income/expense entries daily using **Inngest** background jobs.
+- Transaction processing and account balance updates handled inside **Prisma `$transaction`** for atomic consistency.
 
-## Deploy on Vercel
+### 📅 Monthly Financial Reports
+- **Scheduled Inngest function** runs on the 1st of every month.
+- Aggregates user data and uses **Gemini API** to generate 3 friendly, AI-driven financial insights.
+- Sends personalized reports via email.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🤖 Bot Protection & Rate Limiting
+- Integrated **Arcjet** middleware for:
+  - Bot detection & blocking malicious traffic.
+  - Rate limiting (e.g., 5 req/hr/user).
+  - Shielding against SQL injection & XSS attacks.
+- Runs before Clerk auth middleware for optimal security.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### ⚙️ Performance & Caching
+- **Next.js caching** with `revalidateTag` and `revalidatePath` for efficient data updates.
+- Optional **Redis** caching for frequently accessed summaries.
+- Uses **server components** for faster initial page loads.
+
+---
+
+## 🧱 Tech Stack
+
+| Layer | Technology | Purpose |
+|-------|-------------|----------|
+| **Frontend** | Next.js (App Router), React, Tailwind CSS | UI & server-side rendering |
+| **Authentication** | Clerk | Secure user auth & session management |
+| **Database** | PostgreSQL | Relational data storage |
+| **ORM** | Prisma | Type-safe database access |
+| **Async Jobs** | Inngest | Cron jobs, recurring transactions, monthly reports |
+| **AI Integration** | Gemini API | Financial insights generation |
+| **Security** | Arcjet | Bot protection, rate limiting, threat shield |
+| **Email Service** | Resend + React Email | Sending budget alerts and monthly reports |
+| **Deployment** | Vercel | Serverless deployment with built-in edge caching |
+
+---
+
+## 🧩 Architecture Overview
+
